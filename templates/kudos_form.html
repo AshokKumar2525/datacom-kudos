@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Give Kudos</h1>
+  <form method="post">
+    <div>
+      <label for="recipient_id">To:</label>
+      <select id="recipient_id" name="recipient_id">
+        <option value="">-- select --</option>
+        {% for u in users %}
+          {% if user and u.id == user.id %}
+            {% continue %}
+          {% endif %}
+          <option value="{{ u.id }}">{{ u.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="message">Message (max 500 chars):</label><br>
+      <textarea id="message" name="message" rows="4" cols="50" maxlength="500"></textarea>
+    </div>
+    <div>
+      <button type="submit">Send Kudos</button>
+    </div>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Login (select user)</h1>
+  <ul>
+    {% for u in users %}
+      <li><a href="/login?user_id={{ u.id }}">Login as {{ u.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

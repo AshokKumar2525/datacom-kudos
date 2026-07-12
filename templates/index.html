@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Recent Kudos</h1>
+  {% if not kudos %}
+    <p>No kudos yet. Be the first to give one!</p>
+  {% endif %}
+  {% for k in kudos %}
+    <div class="kudos">
+      <div class="meta">From <strong>{{ k.sender.name }}</strong> to <strong>{{ k.recipient.name }}</strong> — {{ k.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+      <div class="message">{{ k.message }}</div>
+      {% if user and user.id == 1 %}
+        <form class="inline" method="post" action="/admin/moderate/{{ k.id }}">
+          <input type="hidden" name="action" value="hide">
+          <input placeholder="reason (optional)" name="reason">
+          <button type="submit">Hide</button>
+        </form>
+        <form class="inline" method="post" action="/admin/moderate/{{ k.id }}">
+          <input type="hidden" name="action" value="delete">
+          <button type="submit">Delete</button>
+        </form>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+{% endblock %}
